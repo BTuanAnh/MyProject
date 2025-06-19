@@ -1,0 +1,153 @@
+﻿@model IEnumerable<WebApplication1.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <a href="@Url.Action("SaveUser")" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Thêm 
+                    </a>
+                </div>
+
+                <form class="form-inline">
+                    <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-dark">
+                        <tr class="text-center">
+                            <th style="width: 15%;">Tên tài khoản</th>
+                            <th style="width: 15%;">Mật khẩu</th>
+                            <th style="width: 15%;">Email</th>
+                            <th style="width: 15%;">Phân quyền</th>
+                            <th style="width: 15%;">Điện thoại</th>
+                            <th style="width: 15%;">Địa chỉ</th>
+                            <th style="width: 15%;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="textend">@item.Username</td>
+                                <td class="textend">@item.Password</td>
+                                <td class="textend">@item.Email</td>
+                                <td class="textend">@item.Role</td>
+                                <td class="textend">@item.Phone</td>
+                                <td class="textend">@item.Address</td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("SaveUser", new { id = item.UserId })" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </a>
+
+                                    <form asp-action="Delete_User"
+                                          asp-route-id="@item.UserId"
+                                          method="post"
+                                          class="d-inline"
+                                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash-alt"></i> Xóa
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <p>
+                    <span class="prev-page">&laquo;</span>
+                    <span class="page-number" data-page="1">1</span>
+                    <span class="page-number" data-page="2">2</span>
+                    <span class="page-number" data-page="3">3</span>
+                    <span class="next-page">&raquo;</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rowsPerPage = 5;
+        const tableBody = document.querySelector("tbody");
+        const allRows = Array.from(tableBody.querySelectorAll("tr"));
+        const paginationContainer = document.querySelector(".pagination p");
+        const searchInput = document.querySelector("#searchInput");
+        let filteredRows = [...allRows];
+        let currentPage = 1;
+
+        function displayPage(pageNumber, dataRows) {
+            tableBody.innerHTML = "";
+            const start = (pageNumber - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedRows = dataRows.slice(start, end);
+            paginatedRows.forEach(row => tableBody.appendChild(row));
+
+            document.querySelectorAll(".page-number").forEach(el => el.classList.remove("active"));
+            const activePage = document.querySelector(`.page-number[data-page='${pageNumber}']`);
+            if (activePage) activePage.classList.add("active");
+            currentPage = pageNumber;
+        }
+
+        function setupPagination(dataRows) {
+            paginationContainer.innerHTML = '<span class="prev-page">&laquo;</span>';
+            const pageCount = Math.ceil(dataRows.length / rowsPerPage);
+
+            for (let i = 1; i <= pageCount; i++) {
+                const pageElement = document.createElement("span");
+                pageElement.classList.add("page-number");
+                pageElement.dataset.page = i;
+                pageElement.textContent = i;
+                paginationContainer.appendChild(pageElement);
+            }
+
+            paginationContainer.innerHTML += '<span class="next-page">&raquo;</span>';
+        }
+
+        paginationContainer.addEventListener("click", function (event) {
+            if (event.target.classList.contains("page-number")) {
+                displayPage(parseInt(event.target.dataset.page), filteredRows);
+            } else if (event.target.classList.contains("prev-page") && currentPage > 1) {
+                displayPage(currentPage - 1, filteredRows);
+            } else if (event.target.classList.contains("next-page")) {
+                const pageCount = Math.ceil(filteredRows.length / rowsPerPage);
+                if (currentPage < pageCount) displayPage(currentPage + 1, filteredRows);
+            }
+        });
+
+        searchInput.addEventListener("input", function () {
+            const searchValue = searchInput.value.toLowerCase();
+            filteredRows = allRows.filter(row => row.querySelector("td").textContent.toLowerCase().includes(searchValue));
+            setupPagination(filteredRows);
+            displayPage(1, filteredRows);
+        });
+
+        setupPagination(allRows);
+        displayPage(1, allRows);
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

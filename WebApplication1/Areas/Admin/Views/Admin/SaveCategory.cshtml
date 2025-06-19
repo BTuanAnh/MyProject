@@ -1,0 +1,28 @@
+﻿@using WebApplication1.Models
+@model Category
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>@ViewData["Title"]</h3>
+    <form asp-action="SaveCategory" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="CategoryId" value="@Model?.CategoryId" />
+
+        <div class="mb-3">
+            <label class="form-label">Danh mục</label>
+            <input name="CategoryName" value="@Model?.CategoryName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Danh mục cha</label>
+            <input name="ParentCategoryId" value="@Model?.ParentCategoryId" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Lưu
+        </button>
+        <a href="@Url.Action("Categories")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </form>
+</div>

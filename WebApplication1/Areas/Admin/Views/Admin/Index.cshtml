@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string) || !string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var message = "@(TempData["ErrorMessage"] ?? TempData["SuccessMessage"])";
+            var type = "@(TempData["ErrorMessage"] != null ? "danger" : "success")";
+
+            var notification = document.createElement("div");
+            notification.className = "alert alert-" + type + " alert-dismissible fade show position-fixed top-0 end-0 m-3 shadow";
+            notification.style.zIndex = "1050";
+            notification.innerHTML = `
+                <strong>${type === "danger" ? "Lỗi!" : "Thành công!"}</strong> ${message}
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(function () {
+                notification.classList.remove("show");
+                setTimeout(() => notification.remove(), 500);
+            }, 1500);
+        });
+    </script>
+}
+
+    <h4></h4>
+
+

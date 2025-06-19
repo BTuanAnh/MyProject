@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Dashboard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="bg-white border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading text-dark">Admin Dashboard</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-tags me-2"></i> Quản lý khuyến mãi <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Promotions">
+                                Danh sách khuyến mãi
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-person me-2"></i> Quản lý tài khoản <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Users">
+                                Danh sách tài khoản
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-grid me-2"></i> Quản lý danh mục <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Categories">
+                                Danh sách danh mục
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-basket me-2"></i> Quản lý đơn hàng <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Orders">
+                                Danh sách đơn hàng
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-box me-2"></i> Quản lý sản phẩm <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Products">
+                                Danh sách sản phẩm
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark toggle-menu" href="javascript:void(0);">
+                        <i class="bi bi-bar-chart-line me-2"></i> Doanh Số <span class="arrow"><i class="bi bi-chevron-right"></i></span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="AppliedPromotions">
+                                Báo cáo doanh thu
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+
+                <form class="form-inline ml-auto" style=" text-align: right; ">
+                    <i class="bi bi-search"></i>
+                </form>
+
+                <form class="form-inline ml-auto" style="text-align: right; position: relative;">
+                    <span id="userIcon" style=" cursor: pointer;">
+                        <i class="bi bi-person-circle"></i> Trang chủ / Đăng xuất
+                    </span>
+
+                    <div id="dropdownMenu" class="dropdown-menu" style="display: none; position: absolute; right: 0;">
+                        <a href="/home" class="dropdown-item">Trang chủ</a>
+                        <a asp-area="Home" asp-controller="Account" asp-action="Logout" class="dropdown-item">Đăng xuất</a>
+                    </div>
+                </form>
+
+            </nav>
+
+            <div class="container-fluid my-4">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

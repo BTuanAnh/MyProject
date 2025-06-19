@@ -1,0 +1,264 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.mb-3 {
+    height: 50px;
+}
+
+.mb-4 {
+    height: 30px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+body {
+    font-family: 'Roboto', bold;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header Styles */
+.header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid #e6e7e8;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+
+/* Menu Styles */
+.menu ul {
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+    .menu ul li {
+        position: relative;
+    }
+
+        .menu ul li a {
+            color: #333;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+            .menu ul li a:hover {
+                color: #555;
+                background-color: #f0f0f0;
+                border-radius: 4px;
+            }
+
+
+.mega-menu .column {
+    padding: 15px 2px;
+}
+
+
+.mega-menu h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.mega-menu h5 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.mega-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .mega-menu ul li {
+        margin-bottom: 8px;
+    }
+
+        .mega-menu ul li a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+        }
+
+/* ??nh d?ng chung */
+.mega-menu {
+    position: absolute;
+    top: 116%;
+    left: 0;
+    width: 300px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0s linear 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+/* Hi?n th? mega menu khi hover */
+li:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(10px);
+    transition-delay: 0s;
+}
+
+
+
+
+/* Actions Styles */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+    .actions img {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+        .actions img:hover {
+            transform: scale(1.1);
+        }
+
+    .actions .btn-login {
+        background: #000;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+        .actions .btn-login:hover {
+            background: #444;
+        }
+
+    .actions a i {
+        color: black;
+    }
+
+
+/* Utilities */
+
+.text-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-top: 1px solid #444;
+    padding-top: 40px;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+
+
+
+/* C?t danh m?c */
+.column {
+    padding: 10px;
+}
+
+    /* Ti?u ?? danh m?c */
+    .column h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Danh s?ch s?n ph?m */
+    .column ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .column ul li {
+            padding: 0 0;
+        }
+
+            /* ??nh d?ng link */
+            .column ul li a {
+                text-decoration: none;
+                font-size: 14px;
+                transition: color 0.2s;
+            }
+
+                .column ul li a:hover {
+                    color: #ff5733; /* ??i m?u khi hover */
+                }
+
+
+
+
+
+.container {
+    max-width: 1444px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}

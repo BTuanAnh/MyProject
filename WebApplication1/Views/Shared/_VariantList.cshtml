@@ -1,0 +1,61 @@
+﻿@model List<Product>
+
+<link rel="stylesheet" href="~/css/variant.css" asp-append-version="true" /> 
+
+<script src="~/js/variant.js" asp-append-version="true"></script>
+
+
+<div class="d-flex_01">
+    <div id="previewContainer">
+        <img id="previewImage" src="@Model.First().ImageUrl" alt="Preview Image">
+    </div>
+
+    <div>
+        <h2>@Model.First().Title</h2>
+        <h2>Giá: @(Model.First().Price.ToString("N0") + "₫")</h2>
+        <div id="stockContainer" class="quantity">
+            Tác giả: @Model.First().Manufacturer
+        </div>
+
+        <div id="stockContainer" class="quantity">
+            Năm sản xuất: @(Model.First().ReleaseYear?.ToString() ?? "Không rõ")
+        </div>
+
+        <div id="quantitySelect" class="quantity">
+			<span id="quantityOptions">
+				Kho hàng:                 
+                @foreach (var item in Model)
+				{
+                    <span class="quantity-option"
+                          data-quantity="@item.Quantity" inert>
+                        @item.Quantity
+                    </span>
+				}
+			</span>
+        </div>
+
+        <div class="quantity">
+            <span>Số lượng: </span>
+            <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+            <span id="quantity">1</span>
+            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+        </div>
+
+        <div id="variantDisplay">
+            @foreach (var variant in Model)
+            {
+                <div class="variant-item" 
+                    data-image="@variant.ImageUrl"
+                    data-quantity="@variant.Quantity">
+                    <button id="btn-@variant.ProductId"
+                            class="btn btn-success add-to-cart-btn"
+                            onclick="addToCart(@variant.ProductId, this)">
+                        Thêm sản phẩm
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

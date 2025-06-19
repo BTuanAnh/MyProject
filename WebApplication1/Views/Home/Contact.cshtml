@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Contact.css" asp-append-version="true" />
+}
+
+<body>
+    <div class="container_01">
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="title">Tiêu đề liên hệ</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Họ tên</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Điện thoại</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="captcha">Mã xác nhận</label>
+                    <div class="captcha">
+                        <input type="text" id="captcha" required>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nội dung</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn-submit">Gửi</button>
+                    <button type="reset" class="btn-reset">Xóa</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="description">
+                <p>HexShop là nơi mua sắm các sản phẩm điện tử uy tín và chất lượng,luôn luôn đồng hành cùng cách phục vụ chuyên nghiệp nhất.</p>
+                <p>Nếu bạn là một tín đồ công nghệ và luôn muốn "săn lùng" những mặt hàng mới nhất, giá cả phù hợp nhất, đồng thời trải nghiệm dịch vụ tốt nhất, hãy để T&A đồng hành cùng bạn!</p>
+            </div>
+            <p><i>📍</i> 432 Đội Cấn. Ba Đình - Hà Nội</p>
+            <p><i>📞</i>  (+84) 19004502</p>
+            <p><i>✉️</i> hexshopstore@gmail.com</p>
+            <p><i>🌐</i> www.HexShop</p>
+            <p><i>📱</i> facebook.com/HexShop</p>
+        </div>
+    </div>
+</body>
+
+
+
+<section class="services">
+    <div class="service-item">
+        <i class="bi bi-truck"></i>
+        <h4>Miễn phí vận chuyển</h4>
+        <p>Miễn phí vận chuyển cho đơn hàng trên $150</p>
+    </div>
+    <div class="service-item">
+        <i class="bi bi-coin"></i>
+        <h4>Đảm bảo hoàn tiền</h4>
+        <p>Trong vòng 30 ngày để đổi trả</p>
+    </div>
+    <div class="service-item">
+        <i class="bi bi-telephone-outbound-fill"></i>
+        <h4>Hỗ trợ trực tuyến</h4>
+        <p>24 giờ một ngày, 7 ngày một tuần</p>
+    </div>
+    <div class="service-item">
+        <i class="bi bi-credit-card-2-back"></i>
+        <h4>Thanh toán linh hoạt</h4>
+        <p>Thanh toán bằng nhiều thẻ tín dụng</p>
+    </div>
+
+</section>

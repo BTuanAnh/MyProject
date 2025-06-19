@@ -1,0 +1,72 @@
+﻿
+.profile-container {
+    display: flex;
+    padding: 150px 10px;
+}
+
+.sidebar {
+    width: 20%;
+    padding: 1.5rem;
+    border-right: 1px solid #ddd;
+}
+
+.user-info {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+    .sidebar-menu :hover {
+        color: blue;
+    }
+
+    .sidebar-menu li {
+        margin-bottom: 1rem;
+    }
+
+        .sidebar-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+.profile-main {
+    width: 80%;
+    padding: 1.5rem 15.5rem 1.5rem 1.5rem;
+}
+
+    .profile-main h2 {
+        margin-bottom: 1rem;
+    }
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+.edit-btn {
+    padding: 0.7rem 1.5rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
