@@ -1,0 +1,36 @@
+﻿@using WebApplication1.Models
+@model OrderDetail
+@{
+    ViewData["Title"] = "SaveOrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="SaveOrderDetail" method="post">
+    <input type="hidden" name="OrderId" value="@Model?.OrderId" />
+    <input type="hidden" name="VariantId" value="@Model?.ProductId" />
+
+    <div class="mb-3">
+        <label class="form-label">Tên sản phẩm</label>
+        <input class="form-control" value="@Model?.ProductId" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Số lượng</label>
+        <input name="Quantity" value="@Model?.Quantity" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tổng tiền</label>
+        <input name="UnitPrice" value="@Model?.UnitPrice" class="form-control" />
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Lưu
+    </button>
+    <a href="@Url.Action("OrderDetails")" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+</form>
+

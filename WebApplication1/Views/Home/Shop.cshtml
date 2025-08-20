@@ -1,0 +1,127 @@
+﻿
+@section Styles {
+    <link rel="stylesheet" href="~/css/Shop.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/Shop.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <section class="Cartegory">
+        <div class="container">
+            <div class="row" style="gap: 27px;">
+                <div class="category-left">
+                    <div class="category-left_00">
+                        <div class="category-left_01">
+                            <h5 onclick="toggleMenu(this)">Danh mục<i class="bi bi-chevron-right"></i></h5>
+                            <ul class="sub-menu">
+                                <li><a href="#">Các sản phẩm của shop</a></li>
+                                <li onclick="toggleMenu(this)">
+                                    Điện thoại <i class="bi bi-chevron-right"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="#" data-category="1">Điện thoại</a></li>
+                                    </ul>
+                                </li>
+                                <li onclick="toggleMenu(this)">
+                                    Laptop <i class="bi bi-chevron-right"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="#" data-category="2">Laptop</a></li>
+                                    </ul>
+                                </li>
+                                <li onclick="toggleMenu(this)">
+                                    Máy Console <i class="bi bi-chevron-right"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="#" data-category="3">Máy Console</a></li>
+                                    </ul>
+                                </li>
+                                <li onclick="toggleMenu(this)">
+                                    Headphone <i class="bi bi-chevron-right"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="#" data-category="4">Headphone></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="category-left_01">
+                            <h5 onclick="toggleMenu(this)">Khoảng giá <i class="bi bi-chevron-right"></i></h5>
+                            <div class="sub-menu">
+                                <input type="range" min="0" max="3000000" value="1674372" step="1000" id="priceRange">
+                                <div class="range-container">
+                                    <span>0đ</span>
+                                    <span id="priceValue">500.000đ</span>
+                                    <span>1.000.000đ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Cartegory-right">
+                    <div class="cartegory-right-top d-flex align-items-center justify-content-between rounded " style="padding: 13px 0;">
+                        <div class="cartegory-right-top-item flex-grow-1 me-3">
+                            <input type="text" id="search" class="form-control" placeholder="Tìm kiếm sản phẩm..">
+                        </div>
+                        <div class="Cartegory-right-top-item_1">
+                            <select id="filter">
+                                <option value="">Lọc theo</option>
+                                <option value="price-asc">Giá thấp đến cao</option>
+                                <option value="price-desc">Giá cao đến thấp</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="Cartegory-right-content">
+                        @foreach (var Product in Model)
+                        {
+                            
+                            <div class="product-right" data-category="@Product.CategoryId" data-page="@((Model.IndexOf(Product) / 12) + 1)">
+                                <div class="product-image">
+                                    <img src="@Product.ImageUrl" alt="@Product.Title">
+                                    <div class="cart-icon">
+                                        <a href="javascript:void(0);" onclick="openVariantModal(@Product.ProductId)">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                    <div class="search-icon">
+                                        <a asp-controller="Home" asp-action="Product_details" asp-route-id="@Product.ProductId">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h1>@Product.Title</h1>
+                                <p>@Product.Price.ToString("N0")<sup>đ</sup></p>
+                            </div>
+                        }
+                        <div id="variantModal" class="modal fade" tabindex="-1" aria-labelledby="variantModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="variantList"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Cartegory-right-bottom-items">
+                        <p>
+                            <span class="prev-page">&laquo;</span>
+                            <span class="page-number" data-page="1">1</span>
+                            <span class="page-number" data-page="2">2</span>
+                            <span class="page-number" data-page="3">3</span>
+                            <span class="next-page">&raquo;</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

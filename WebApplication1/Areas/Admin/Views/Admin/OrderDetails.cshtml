@@ -1,0 +1,122 @@
+﻿@model IEnumerable<WebApplication1.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "OrderDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <a class="btn btn-primary" asp-area="Admin" asp-controller="Admin" asp-action="Orders">
+                        Quay lại
+                    </a>
+                </div>
+
+                <form class="form-inline">
+                    <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-dark">
+                        <tr class="text-center">
+                            <th style="width: 15%;">Mã đơn hàng</th>
+                            <th style="width: 20%;">Tên sản phẩm</th>
+                            <th style="width: 15%;">Số lượng</th>
+                            <th style="width: 15%;">Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="textend">@item.OrderId</td>
+                                <td class="textend">@item.Product.Title</td>
+                                <td class="textend">@item.Quantity</td>
+                                <td class="textend">@(item.UnitPrice.ToString("N0") + " ₫")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <p>
+                    <span class="prev-page">&laquo;</span>
+                    <span class="page-number" data-page="1">1</span>
+                    <span class="page-number" data-page="2">2</span>
+                    <span class="page-number" data-page="3">3</span>
+                    <span class="next-page">&raquo;</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rowsPerPage = 5;
+        const tableBody = document.querySelector("tbody");
+        const allRows = Array.from(tableBody.querySelectorAll("tr"));
+        const paginationContainer = document.querySelector(".pagination p");
+        const searchInput = document.querySelector("#searchInput");
+        let filteredRows = [...allRows];
+        let currentPage = 1;
+
+        function displayPage(pageNumber, dataRows) {
+            tableBody.innerHTML = "";
+            const start = (pageNumber - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedRows = dataRows.slice(start, end);
+            paginatedRows.forEach(row => tableBody.appendChild(row));
+
+            document.querySelectorAll(".page-number").forEach(el => el.classList.remove("active"));
+            const activePage = document.querySelector(`.page-number[data-page='${pageNumber}']`);
+            if (activePage) activePage.classList.add("active");
+            currentPage = pageNumber;
+        }
+
+        function setupPagination(dataRows) {
+            paginationContainer.innerHTML = '<span class="prev-page">&laquo;</span>';
+            const pageCount = Math.ceil(dataRows.length / rowsPerPage);
+
+            for (let i = 1; i <= pageCount; i++) {
+                const pageElement = document.createElement("span");
+                pageElement.classList.add("page-number");
+                pageElement.dataset.page = i;
+                pageElement.textContent = i;
+                paginationContainer.appendChild(pageElement);
+            }
+
+            paginationContainer.innerHTML += '<span class="next-page">&raquo;</span>';
+        }
+
+        paginationContainer.addEventListener("click", function (event) {
+            if (event.target.classList.contains("page-number")) {
+                displayPage(parseInt(event.target.dataset.page), filteredRows);
+            } else if (event.target.classList.contains("prev-page") && currentPage > 1) {
+                displayPage(currentPage - 1, filteredRows);
+            } else if (event.target.classList.contains("next-page")) {
+                const pageCount = Math.ceil(filteredRows.length / rowsPerPage);
+                if (currentPage < pageCount) displayPage(currentPage + 1, filteredRows);
+            }
+        });
+
+        searchInput.addEventListener("input", function () {
+            const searchValue = searchInput.value.toLowerCase();
+            filteredRows = allRows.filter(row => row.querySelector("td").textContent.toLowerCase().includes(searchValue));
+            setupPagination(filteredRows);
+            displayPage(1, filteredRows);
+        });
+
+        setupPagination(allRows);
+        displayPage(1, allRows);
+    });
+</script>
+
+

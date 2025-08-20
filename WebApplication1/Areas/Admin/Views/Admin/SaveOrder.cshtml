@@ -1,0 +1,51 @@
+﻿@using WebApplication1.Models
+@model Order
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>@ViewData["Title"]</h3>
+    <form asp-action="SaveOrder" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="OrderId" value="@Model?.OrderId" readonly />
+
+        <div class="mb-3">
+            <label class="form-label">Tên khách hàng</label>
+            <input name="UserId" value="@(Model?.UserId > 0 ? Model.UserId.ToString() : "")" class="form-control" placeholder=" " readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ngày đặt hàng</label>
+            <input type="date" name="OrderDate"
+                   value="@(Model?.OrderDate != null ? Model.OrderDate.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))"
+                   class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tổng tiền</label>
+            <input name="TotalAmount" value="@(Model?.TotalAmount > 0 ? Model.TotalAmount.ToString() : "")" class="form-control" placeholder=" " readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Trạng thái</label>
+            <select name="Status" class="form-control">
+                <option value="Processing" selected="@(Model?.Status == "Processing" ? "selected" : null)">Chờ xử lý</option>
+                <option value="Shipping" selected="@(Model?.Status == "Shipping" ? "selected" : null)">Đang giao</option>
+                <option value="Delivered" selected="@(Model?.Status == "Delivered" ? "selected" : null)">Hoàn thành</option>
+                <option value="Cancelled" selected="@(Model?.Status == "Cancelled" ? "selected" : null)">Hủy</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phương thức thanh toán</label>
+            <input name="PaymentMethod" value="@Model?.PaymentMethod" class="form-control" readonly />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Lưu
+        </button>
+        <a href="@Url.Action("Orders")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </form>
+</div>

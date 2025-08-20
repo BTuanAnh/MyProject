@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoang Anh</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Header -->
+    <header class="header py-3 border-bottom">
+        <div class="container d-flex align-items-center justify-content-between">
+            <!-- Logo -->
+            <a href="#" class="logo d-flex align-items-center">
+                <img src="~/images/logo1.PNG" alt="Store Logo" class="me-2" />
+            </a>
+            <!-- Menu -->
+            <nav class="menu">
+                <ul class="d-flex list-unstyled mb-0">
+                    <li class="me-3"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li class="me-3">
+                        <a class="nav-link" asp-controller="Home" asp-action="Shop">Sản phẩm</a>
+                    </li>
+                    <li class="me-3"><a class="nav-link" asp-controller="Home" asp-action="Introduce">Giới thiệu</a></li>
+                    <li class="me-3"><a class="nav-link" asp-controller="Home" asp-action="Individual">Cá nhân</a></li>
+                    <li class="me-3"><a class="nav-link" asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+            <!-- Actions -->
+            <div class="actions d-flex align-items-center">
+                <a href="#" class="me-3"><i class="bi bi-search" aria-hidden="true"></i></a>
+                <a href="#" class="me-3"><i class="bi bi-heart" aria-hidden="true"></i></a>
+                <a asp-controller="Home" asp-action="Checkout" class="me-3 position-relative">
+                    <i class="bi bi-cart" aria-hidden="true"></i>
+                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @((Context.Session.GetObjectFromJson<List<CartItem>>("Cart")?.Sum(c => c.Quantity) ?? 0))
+                    </span>
+                </a>
+                @if (Context.Session.GetString("Role") == "Customer")
+                {
+                    <a class="btn btn-dark btn-sm" asp-controller="Account" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a class="btn btn-dark btn-sm" asp-controller="Account" asp-action="Login">Login</a>
+                }
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <img src="~/images/logo1.png" alt="Hexa Logo" class="mb-3" />
+                    <p>
+                        <strong>Điện thoại:</strong> (704) 555-0127<br />
+                        <strong>Email:</strong> Guu@example.com<br />
+                        <strong>Địa chỉ:</strong> 3891 Ranchview Dr. Richardson, CA 62639
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Thông Tin</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Tài Khoản Của Tôi</a></li>
+                        <li><a href="#" class="text-white">Đăng Nhập</a></li>
+                        <li><a href="#" class="text-white">Giỏ Hàng</a></li>
+                        <li><a href="#" class="text-white">Danh Sách Yêu Thích</a></li>
+                        <li><a href="#" class="text-white">Thanh Toán</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Dịch Vụ</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Về Chúng Tôi</a></li>
+                        <li><a href="#" class="text-white">Tuyển Dụng</a></li>
+                        <li><a href="#" class="text-white">Thông Tin Giao Hàng</a></li>
+                        <li><a href="#" class="text-white">Chính Sách Bảo Mật</a></li>
+                        <li><a href="#" class="text-white">Điều Khoản & Điều Kiện</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Đăng Ký Nhận Tin</h5>
+                    <p>Nhập email của bạn để nhận thông tin về bộ sưu tập mới và sản phẩm mới nhất.</p>
+                    <form>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Nhập Email Của Bạn" />
+                            <button class="btn btn-light" type="submit">→</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <img src="~/images/" alt="" class="mb-4">
+                <p>&copy; 2025 Guu. All Rights Reserved.</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="#" class="text-white">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-white">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-white">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("scripts", required: false)
+</body>
+</html>

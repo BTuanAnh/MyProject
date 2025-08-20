@@ -1,0 +1,49 @@
+﻿@model WebApplication1.Models.User
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Shipping_Address.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "Shipping_Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container_01">
+    <div class="address-layout">
+        <div class="saved-addresses half-width">
+            <h2>Chọn phương thức thanh toán</h2>
+            <form method="post" asp-controller="Shop" asp-action="CheckoutProcess">
+                <div class="form-group">
+                    <select name="PaymentMethod" class="form-control" required>
+                        <option value="Cash on Delivery">Thanh toán khi nhận hàng</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Đặt hàng</button>
+            </form>
+        </div>
+
+        <div class="new-address">
+            <h2>Địa chỉ giao hàng</h2>
+            <form method="post" asp-action="Shipping_Address">
+                <div class="form-group">
+                    <label asp-for="Username">Tên</label>
+                    <input asp-for="Username" class="form-control" placeholder="Nhập tên" required />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone">Số điện thoại</label>
+                    <input asp-for="Phone" class="form-control" type="tel" placeholder="Nhập số điện thoại" required />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address">Địa chỉ</label>
+                    <input asp-for="Address" class="form-control" placeholder="Nhập địa chỉ" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Cập nhật địa chỉ</button>
+            </form>
+        </div>
+    </div>
+</div>

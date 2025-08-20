@@ -1,0 +1,152 @@
+﻿.container_01 {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 180px 0px 100px 0px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 30px;
+}
+
+.cart-items {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-image {
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.product-details h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.product-details p {
+    color: #666;
+    font-size: 14px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .quantity-controls button {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        background: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .quantity-controls input {
+        width: 40px;
+        height: 30px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+.remove-item {
+    color: #dc3545;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.summary {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    position: sticky;
+    top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .summary h2 {
+        margin-bottom: 20px;
+    }
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.discount-code {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+    .discount-code input {
+        flex: 1;
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+.apply-btn {
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+    .checkout-btn:hover, .apply-btn:hover {
+        background: #333;
+    }
+
+a:hover {
+    color: #fff;
+}

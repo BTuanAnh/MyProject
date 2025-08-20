@@ -1,0 +1,223 @@
+﻿
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+}
+
+@section Scripts {
+    <script src="~/js/Index.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <section class="hero-section">
+        <button class="arrow-btn arrow-left">&#10094;</button>
+        <div class="hero-slider">
+            <div class="hero-section-img">
+                <img src="~/images1/tenweb_media_r2ee9rgck.webp" />
+                <img src="~/images1/tenweb_media_rqm9trfgj.webp" />
+                <img src="~/images1/tenweb_media_rpnysazli.webp" />
+                <img src="~/images1/tenweb_media_rhgzszfwr.webp" />
+            </div>
+        </div>
+        <button class="arrow-btn arrow-right">&#10095;</button>
+    </section>
+
+    <section>
+        <div class="welcome-message">CHÀO MỪNG ĐẾN VỚI HEXASHOP</div>
+
+        <div class="banner">
+            <div class="banner-row">
+                <!-- Thêm wrapper cho ảnh -->
+                <div class="banner-item">
+                    <img src="~/images1/tenweb_media_rhauoqgdz.webp" alt="Banner 1">
+                    <!-- Thêm overlay -->
+                    <div class="overlay">
+                        <p>Lựa chọn cho bản thân một chiếc điện thoại nào!</p>
+                        <button>Shop</button>
+                    </div>
+                </div>
+                <!-- Lặp lại cho các ảnh khác -->
+                <div class="banner-item">
+                    <img src="~/images1/tenweb_media_rhgzszfwr.webp" alt="Banner 2">
+                    <div class="overlay">
+                        <p>Bạn đã tìm được chiếc laptop lý tưởng cho mình chưa?</p>
+                        <button>Shop</button>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-row">
+                <!-- Thêm wrapper cho ảnh -->
+                <div class="banner-item">
+                    <img src="~/images1/tenweb_media_rdtijdggz.webp" alt="Banner 3">
+                    <!-- Thêm overlay -->
+                    <div class="overlay">
+                        <p>Lựa chọn tai nghe phù hợp – nâng tầm trải nghiệm âm nhạc!</p>
+                        <button>Shop</button>
+                    </div>
+                </div>
+                <!-- Lặp lại cho các ảnh khác -->
+                <div class="banner-item">
+                    <img src="~/images1/Top 10 cấu hình PC Handheld đáng mua giá tốt nhất 2023 (1).jpg" alt="Banner 4">
+                    <div class="overlay">
+                        <p>Chọn ngay cho mình chiếc console đỉnh cao để chiến game mọi lúc!</p>
+                        <button>Shop</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="category-header">
+            <div class="category-title">SẢN PHẨM BÁN CHẠY<div>
+            <div class="arrow-buttons">
+                <i class="bi bi-arrow-left" id="prevBtn"></i>
+                <i class="bi bi-arrow-right" id="nextBtn"></i>
+            </div>
+        </div>
+
+                <div class="Cartegory-right-content">
+                    @foreach (var Product in Model)
+                    {
+                        <div class="product-right" data-category="@Product.CategoryId" data-page="@((Model.IndexOf(Product) / 12) + 1)">
+                            <div class="product-image">
+                                <img src="@Product.ImageUrl" alt="@Product.Title">
+                                <div class="cart-icon">
+                                    <a href="javascript:void(0);" onclick="openVariantModal(@Product.ProductId)">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+                                <div class="search-icon">
+                                    <a asp-controller="Home" asp-action="Product_details" asp-route-id="@Product.ProductId">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <h1>@Product.Title</h1>
+                            <p>@Product.Price.ToString("N0")<sup>đ</sup></p>
+                        </div>
+                    }
+                    <div id="variantModal" class="modal fade" tabindex="-1" aria-labelledby="variantModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="variantList"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </section>
+
+    
+    
+    
+    
+    
+    
+    <section class="section" id="explore">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-content">
+                        <h2>Explore Our Products</h2>
+                        <span>
+                            Discover the Latest in Tech Innovation.
+                            From cutting-edge smartphones to powerful laptops and essential accessories — explore our full range of electronics, all in one place..
+                        </span>
+                        <div class="quote">
+                            <i class="fa fa-quote-left"></i><p>
+                                Upgrade Your Tech Game.
+                                Explore our wide selection of electronics designed to keep you connected, productive, and entertained. Whatever you need, we’ve got the tech for it..
+                            </p>
+                        </div>
+                        <p>
+                            Top Electronics. Trusted Brands. Great Deals.
+                            Shop now and discover what’s trending in tech!.
+                        </p>
+                        <p>
+                            Tech That Works for You.
+                            Explore smart, powerful, and innovative products built to make life easier — from home to office, and everywhere in between. <a rel="nofollow" href="https://paypal.me/templatemo" target="_blank">support us</a> a little via PayPal. Please also tell your friends about our great website. Thank you.
+                        </p>
+                        <div class="main-border-button">
+                            <a href="products.html">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="leather">
+                                    <h4>Gaming</h4>
+                                    <span>Latest Collection</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="first-image">
+                                    <img src="~/images/LP.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="second-image">
+                                    <img src="~/images/c2.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="types">
+                                    <h4>Learning</h4>
+                                    <span>Join us</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Explore Area Ends ***** -->
+
+
+    
+    
+    
+    
+    <section class="services">
+        <div class="service-item">
+            <i class="bi bi-truck"></i>
+            <h4>Miễn phí vận chuyển</h4>
+            <p>Miễn phí vận chuyển cho đơn hàng trên $150</p>
+        </div>
+        <div class="service-item">
+            <i class="bi bi-coin"></i>
+            <h4>Đảm bảo hoàn tiền</h4>
+            <p>Trong vòng 30 ngày để đổi trả</p>
+        </div>
+        <div class="service-item">
+            <i class="bi bi-telephone-outbound-fill"></i>
+            <h4>Hỗ trợ trực tuyến</h4>
+            <p>24 giờ một ngày, 7 ngày một tuần</p>
+        </div>
+        <div class="service-item">
+            <i class="bi bi-credit-card-2-back"></i>
+            <h4>Thanh toán linh hoạt</h4>
+            <p>Thanh toán bằng nhiều thẻ tín dụng</p>
+        </div>
+
+    </section>
+
+
+
+</main>

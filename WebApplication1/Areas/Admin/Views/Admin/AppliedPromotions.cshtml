@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplication1.Models.Report>
+
+@{
+    ViewData["Title"] = "AppliedPromotions";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form asp-action="AppliedPromotions" method="get">
+    <label for="fromDate">Từ ngày:</label>
+    <input type="date" id="fromDate" name="fromDate" required />
+
+    <label for="toDate">Đến ngày:</label>
+    <input type="date" name="toDate" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+
+    <button type="submit">Xem báo cáo</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ngày báo cáo</th>
+            <th>Doanh thu (VND)</th>
+            <th>Tổng đơn hàng</th>
+            <th>Sản phẩm bán chạy nhất</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ReportDate.ToString("dd/MM/yyyy")</td>
+                <td>@item.TotalRevenue.ToString("N0") ₫</td>
+                <td>@item.TotalOrders</td>
+                <td>
+                    @(item.BestSellingProduct != null ? item.BestSellingProduct.Title : "Không có")
+                </td>
+                <td>
+                    <form asp-action="Delete_AppliedPromotion"
+                          asp-route-id="@item.ReportId"
+                          method="post"
+                          class="d-inline"
+                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa báo cáo này không?');">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Xóa
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

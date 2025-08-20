@@ -1,0 +1,65 @@
+﻿@using WebApplication1.Models
+@model Product
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>@ViewData["Title"]</h3>
+    <form asp-action="SaveProduct" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="ProductId" value="@Model?.ProductId" />
+
+        <div class="mb-3">
+            <label class="form-label">Tên sản phẩm</label>
+            <input name="Title" value="@Model?.Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tên nhà sản xuất</label>
+            <input name="Manufacturer" value="@Model?.Manufacturer" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Giá bán</label>
+            <input type="number" name="Price" value="@(Model?.Price > 0 ? Model.Price.ToString() : "")" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số lượng</label>
+            <input name="Quantity" value="@(Model?.Quantity > 0 ? Model.Quantity.ToString() : "")" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mô tả</label>
+            <textarea name="Description" class="form-control" rows="3">@Model?.Description</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hình ảnh</label>
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+            @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-thumbnail mt-2" style="max-width: 80px;" />
+            }
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Năm sản xuất</label>
+            <input type="number" name="ReleaseYear" value="@Model?.ReleaseYear" class="form-control" min="1900" max="2100" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Danh mục</label>
+            <select name="CategoryId" class="form-select" asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "CategoryName", Model?.CategoryId))">
+                <option value="">-- Chọn danh mục --</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Lưu
+        </button>
+        <a href="@Url.Action("Products")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </form>
+</div>

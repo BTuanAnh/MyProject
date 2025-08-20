@@ -1,0 +1,64 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var notification = document.createElement("div");
+            notification.className = "alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3 shadow-lg";
+            notification.style.zIndex = "1050";
+            notification.innerHTML = `
+                <strong><i></i> Lỗi!</strong> ${"@ViewBag.Error"}
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(function () {
+                notification.classList.remove("show");
+                setTimeout(() => notification.remove(), 500);
+            }, 1500);
+        });
+    </script>
+
+
+}
+
+
+
+
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img src="~/images/c1.png" />
+        </div>
+        <div class="right-section">
+            <div class="login-box">
+                <h2>Welcome <span>👋</span></h2>
+                <p>Please register</p>
+                <form asp-action="TryLogin" asp-controller="Account" method="post">
+                    <div class="input-group">
+                        <label for="username">Tên đăng nhập:</label>
+                        <input type="text" name="username" placeholder="Tên đăng nhập" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Mật khẩu:</label>
+                        <input type="password" name="password" placeholder="Mật khẩu" required>
+                    </div>
+                    <div class="options">
+                        <a asp-controller="Account" asp-action="Register" class="forgot-password">Đăng ký</a>
+                        <a asp-controller="Home" asp-action="ForgotPassword" class="forgot-password">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit" class="login-button">Đăng nhập</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

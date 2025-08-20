@@ -1,0 +1,119 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Checkout.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/Checkout.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string) || !string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var message = "@(TempData["ErrorMessage"] ?? TempData["SuccessMessage"])";
+            var type = "@(TempData["ErrorMessage"] != null ? "danger" : "success")";
+
+            var notification = document.createElement("div");
+            notification.className = "alert alert-" + type + " alert-dismissible fade show position-fixed top-0 end-0 m-3 shadow";
+            notification.style.zIndex = "1050";
+            notification.innerHTML = `
+                <strong>${type === "danger" ? "Lỗi!" : "Thành công!"}</strong> ${message}
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(function () {
+                notification.classList.remove("show");
+                setTimeout(() => notification.remove(), 500);
+            }, 1500);
+        });
+    </script>
+}
+
+<div class="container_01">
+    <div class="checkout-grid">
+        <div class="cart-items">
+            <form method="post" style="max-height: 382px; overflow-y: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Nhà sản xuất</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><img src="@item.ImageUrl" alt="Ảnh sản phẩm" width="50" /></td>
+                                <td>@item.Title</td>
+                                <td>@item.Manufacturer</td>
+                                <td>
+                                    <span id="price-@item.ProductId" data-price="@item.Price">
+                                        @(item.Price != null ? item.Price.ToString("N0") + "₫" : "0₫")
+                                    </span>
+                                </td>
+                                <td>
+                                    <input type="number" id="qty-@item.ProductId" value="@item.Quantity" min="1" max="100"
+                                           class="form-control-sm" onchange="updateCart(@item.ProductId)">
+                                </td>
+
+                                <td>
+                                    <span id="total-@item.ProductId" class="total-price">
+                                        @((item.Price != null ? (item.Quantity * item.Price).ToString("N0") + "₫" : "0₫"))
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Remove", "Shop", new 
+                                        { ProductId = item.ProductId })"
+                                       class="btn btn-danger btn-sm">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+		</div>
+        <div class="summary">
+            <h2>Thông tin đơn hàng</h2>
+            <div class="summary-row">
+                <span><strong>Tổng số tiền đơn hàng:</strong></span>
+                <strong class="total-amount" id="total-amount">
+                    @(ViewBag.TotalAmount != null ? ViewBag.TotalAmount.ToString("N0") + "₫" : "0₫")
+                </strong>
+            </div>
+
+            <form class="discount-code" method="post" asp-controller="Shop" asp-action="ApplyDiscount">
+                <input type="text" name="discountCode" placeholder="Nhập mã giảm giá" required />
+                <button class="apply-btn" type="submit">Áp dụng</button>
+            </form>
+
+            @{
+                int discount = Context.Session.GetInt32("DiscountPercentage") ?? 0;
+                decimal totalAmount = ViewBag.TotalAmount ?? 0;
+                decimal discountAmount = (discount > 0) ? (totalAmount * discount / 100) : 0;
+                decimal finalAmount = totalAmount - discountAmount;
+            }
+
+            <div class="summary-row">
+                <strong>Tổng cộng</strong>
+                <strong>@discountAmount.ToString("N0")₫</strong>
+            </div>
+
+            <form method="post" asp-controller="Shop" asp-action="CheckoutShippingAddress">
+                <button type="submit" class="checkout-btn">Xác nhận giỏ hàng</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,52 @@
+﻿@using WebApplication1.Models
+@model User
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>@ViewData["Title"]</h3>
+    <form asp-action="SaveUser" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="UserId" value="@Model?.UserId" />
+
+        <div class="mb-3">
+            <label class="form-label">Tên tài khoản</label>
+            <input name="Username" value="@Model?.Username" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mật khẩu</label>
+            <input name="Password" value="@Model?.Password" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input name="Email" value="@Model?.Email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vai trò</label>
+            <select name="Role" class="form-control">
+                <option value="Customer" selected="@(Model?.Role == "Customer" ? "selected" : null)">Customer</option>
+                <option value="Admin" selected="@(Model?.Role == "Admin" ? "selected" : null)">Admin</option>
+                <option value="Support" selected="@(Model?.Role == "Support" ? "selected" : null)">Support</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Điện thoại</label>
+            <input name="Phone" value="@Model?.Phone" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ</label>
+            <input name="Address" value="@Model?.Address" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Lưu
+        </button>
+        <a href="@Url.Action("Users")" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </form>
+</div>

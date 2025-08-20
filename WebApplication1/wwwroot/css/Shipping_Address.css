@@ -1,0 +1,185 @@
+﻿.container_01 {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 130px 30px 80px 30px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+
+.new-address {
+    flex: 1;
+}
+
+.address-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 90px;
+    margin-bottom: 32px;
+}
+
+.total {
+    font-weight: 600;
+}
+
+.discount-code {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+    .discount-code input {
+        padding: 8px;
+        border: 1px solid #ddd;
+        width: 120px;
+    }
+
+.btn-apply {
+    background-color: #000;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.saved-addresses {
+    margin-bottom: 32px;
+    width: 50%;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.address-card {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+    .address-card.selected {
+        border-color: #000;
+    }
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.address {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.address-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-edit {
+    color: #666;
+}
+
+.btn-delete {
+    color: #dc2626;
+}
+
+.btn-deliver {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 32px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+    .btn-primary:hover {
+        background: #333;
+    }
+
+@media (max-width: 768px) {
+    .address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .address-layout {
+        flex-direction: column;
+    }
+
+    .half-width {
+        width: 100%;
+    }
+}

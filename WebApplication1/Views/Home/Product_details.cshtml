@@ -1,0 +1,179 @@
+﻿@{
+    ViewData["Title"] = "Product_details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Product_details.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/Product_details.js" asp-append-version="true"></script>
+}
+
+@model List<Product>
+
+<div class="product-container">
+    <div class="product-images">
+        <img id="main-image" src="@Model.First().ImageUrl" alt="Main product image">
+    </div>
+
+    <div class="product-info">
+        <h2>@Model.First().Title</h2>
+        <h2>Giá: @(Model.First().Price.ToString("N0") + "₫")</h2>
+        <div id="stockContainer" class="quantity">
+            Nhà sản xuất: @Model.First().Manufacturer
+        </div>
+
+        <div id="stockContainer" class="quantity">
+            Năm sản xuất: @(Model.First().ReleaseYear?.ToString() ?? "Không rõ")
+        </div>
+
+        <div id="stockContainer" class="quantity">
+            <span>Kho hàng:</span>
+            @foreach (var item in Model)
+            {
+                <span class="quantity-option"
+                      data-quantity="@item.Quantity">
+                    @item.Quantity
+                </span>
+            }
+        </div>
+
+        <div class="quantity">
+            <span>Số lượng: </span>
+            <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+            <span id="quantity">1</span>
+            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+        </div>
+
+        <div id="variantDisplay">
+            @foreach (var variant in Model)
+            {
+                <div class="variant-item"
+                     data-image="@variant.ImageUrl"
+                     data-quantity="@variant.Quantity">
+                    <button id="btn-@variant.ProductId"
+                            class="btn btn-success add-to-cart-btn"
+                            onclick="addToCart(@variant.ProductId, this)">
+                        Thêm vào cart
+                    </button>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<div class="product-container_01">
+    <div class="product-tabs">
+        <ul class="tab-list">
+            <li class="active" onclick="changeTab('description', this)">Mô tả sản phẩm</li>
+            <li onclick="changeTab('reviews', this)">Đánh Giá - Nhận Xét Từ Khách Hàng</li>
+            <li onclick="changeTab('return-policy', this)">Chính sách đổi trả</li>
+            <li onclick="changeTab('privacy-policy', this)">Chính sách bảo mật</li>
+            <li onclick="changeTab('faq', this)">Câu hỏi thường gặp</li>
+        </ul>
+        <div class="tab-content">
+            <div id="description" class="tab-pane active">
+                <p>@Model.First().Description</p>
+            </div>
+            <div id="reviews" class="tab-pane">
+                <div class="feedback-container">
+                    <h3>Đánh Giá - Nhận Xét Từ Khách Hàng</h3>
+
+                    <div id="feedback-list">
+                        @if (Model.First().Feedbacks.Any())
+                        {
+                            @foreach (var feedback in Model.First().Feedbacks)
+                            {
+                                <div class="feedback">
+                                    <strong>@(feedback.User != null ? feedback.User.Username : "Người dùng ẩn danh")</strong> -
+                                    @feedback.FeedbackDate.ToString("dd/MM/yyyy")
+                                    <p>Rating: @(feedback.Rating.HasValue ? feedback.Rating.Value : 0) ⭐</p>
+                                    <p>@feedback.Comment</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>Chưa có đánh giá nào.</p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="return-policy" class="tab-pane">
+                <h2>1. CHÍNH SÁCH ÁP DỤNG</h2>
+                <p>Áp dụng từ ngày 01/09/2018.</p>
+                <p>Trong vòng 30 ngày kể từ ngày mua sản phẩm, khách hàng có thể đổi trả.</p>
+                <p>Sản phẩm giảm giá > 50% sẽ không được đổi trả.</p>
+
+                <h2>2. ĐIỀU KIỆN ĐỔI SẢN PHẨM</h2>
+                <p>- Đổi hàng trong vòng 7 ngày kể từ ngày nhận hàng.</p>
+                <p>- Sản phẩm còn nguyên tem, mác và chưa qua sử dụng.</p>
+
+                <h2>3. THỰC HIỆN ĐỔI SẢN PHẨM</h2>
+                <p>Bước 1: Gọi điện thoại đến số 0964914212 để xác nhận thông tin đổi trả.</p>
+                <p>Bước 2: Gửi sản phẩm về kho: 1165 Giải Phóng, Hoàng Mai, Hà Nội.</p>
+                <p>Bước 3: Chờ xác nhận và nhận sản phẩm đổi trả trong vòng 7 ngày.</p>
+            </div>
+            <div id="privacy-policy" class="tab-pane">
+                <h2>BẢO MẬT THÔNG TIN KHÁCH HÀNG</h2>
+
+                <h3>1. Thu thập và sử dụng thông tin</h3>
+                <p>Guu chỉ thu thập các loại thông tin cần thiết liên quan đến đơn đặt hàng gồm: thông tin cá nhân, thông tin liên hệ và thông tin giao dịch.</p>
+                <p>Các thông tin này nhằm mục đích xử lý đơn hàng, nâng cao chất lượng dịch vụ và chăm sóc khách hàng.</p>
+                <p>Khách hàng có thể chỉnh sửa hoặc cập nhật thông tin bất cứ lúc nào.</p>
+
+                <h3>2. Cách thức bảo mật thông tin khách hàng</h3>
+                <p>Guu cam kết bảo vệ thông tin cá nhân của khách hàng bằng cách áp dụng các biện pháp bảo mật hiện đại.</p>
+                <p>Việc bảo mật được thực hiện thông qua mã hóa dữ liệu và giới hạn quyền truy cập.</p>
+                <p>Tuy nhiên, do đặc điểm của môi trường Internet, không một hệ thống nào có thể đảm bảo bảo mật tuyệt đối.</p>
+
+                <h3>3. Trách nhiệm bảo mật thông tin khách hàng</h3>
+                <p>Khách hàng có trách nhiệm bảo mật thông tin đăng nhập và không chia sẻ thông tin tài khoản với bên thứ ba.</p>
+                <p>Guu không chịu trách nhiệm nếu khách hàng để lộ thông tin cá nhân gây ảnh hưởng đến tài khoản của mình.</p>
+
+                <h3>4. Luật áp dụng</h3>
+                <p>Mọi tranh chấp phát sinh giữa khách hàng và guu sẽ được giải quyết theo pháp luật Việt Nam.</p>
+            </div>
+            <div id="faq" class="tab-pane">
+                <h2>Câu hỏi thường gặp</h2>
+                <p>Dưới đây là một số câu hỏi phổ biến của khách hàng.</p>
+
+                <div class="faq-item">
+                    <h3>Làm thế nào để tôi đặt hàng online?</h3>
+                    <p>Guu rất vui lòng hỗ trợ khách hàng đặt hàng online bằng một trong những cách sau:</p>
+                    <ul>
+                        <li>Truy cập trang web: <a href="https://guu.vn/" target="_blank">https://guu.vn/</a></li>
+                        <li>Liên hệ số hotline: <strong>0964942121</strong> để đặt sản phẩm</li>
+                        <li>Chat với tư vấn viên trên fanpage: <a href="https://www.facebook.com/guu.vn" target="_blank">Facebook guu</a></li>
+                    </ul>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Đặt hàng trên web tôi muốn đổi mẫu thì làm thế nào?</h3>
+                  </div>
+
+                <div class="faq-item">
+                    <h3>Tôi có được xem hàng và thử không?</h3>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Tôi muốn đổi màu (size) thì cần làm gì?</h3>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Tôi mua hàng rồi, không vừa ý có thể đổi lại hay không?</h3>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Tôi muốn miễn phí ship</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
